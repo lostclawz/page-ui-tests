@@ -1,5 +1,5 @@
 {
-  "name": "test-chrome",
+  "name": "page-ui-tests",
   "version": "0.0.1",
   "description": "page ui tests using puppeteer and mocha/chai",
   "main": "src/test-page.js",
