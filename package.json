@@ -21,5 +21,43 @@
     "mocha": "^5.2.0",
     "puppeteer": "^1.8.0",
     "sinon": "^6.2.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.6.1"
+  },
+  "eslintConfig": {
+     "env": {
+        "browser": "true",
+        "commonjs": "true",
+        "es6": "true",
+        "node": "true"
+     },
+     "parser": "babel-eslint",
+     "extends": "eslint:recommended",
+     "parserOptions": {
+        "sourceType": "module"
+     },
+     "rules": {
+        "no-unused-vars": 0,
+        "no-console": 0,
+        "no-mixed-spaces-and-tabs": 0,
+        "no-undef": 0,
+        "no-inner-declarations": 0,
+        "max-len": [
+           2,
+           80,
+           4,
+           {
+              "ignoreStrings": true,
+              "ignoreComments": true,
+              "ignoreUrls": true,
+              "ignoreTemplateLiterals": true,
+              "ignorePattern": "[ ]*<p>.*</p>",
+              "ignoreRegExpLiterals": true
+           }
+        ],
+        "strict": 0
+     }
   }
 }
