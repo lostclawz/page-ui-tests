@@ -1,14 +1,13 @@
-const {join} = require('path');
-const puppeteer = require( 'puppeteer' );
-const devices = require('puppeteer/DeviceDescriptors');
-const {expect} = require('chai');
-const {
+import {join} from 'path';
+import puppeteer from 'puppeteer';
+import devices from 'puppeteer/DeviceDescriptors';
+import {expect} from 'chai';
+import {
    getElementStyles,
    mkDirIfAbsent
-} = require('./utils/testing-utils');
+} from './utils/testing-utils';
+
 const TEST_TIMEOUT = 30000;
-
-
 const url = 'http://www.kupex.com/';
 const label = "site";
 const screenshotsFor = [

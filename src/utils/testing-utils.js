@@ -1,17 +1,17 @@
-const {join} = require('path');
-const {
+import {join} from 'path';
+import {
    existsSync,
    mkdirSync,
    writeFileSync
-} = require('fs');
-const devices = require('puppeteer/DeviceDescriptors');
+} from 'fs';
+import devices from 'puppeteer/DeviceDescriptors';
 
 
 /**
  * Write list of puppeteer/DeviceDescriptors
  * to __dirname/pathRel/filename for reference
  */
-const writeDeviceList = (filename="devices.txt", pathRel='..') =>
+export const writeDeviceList = (filename="devices.txt", pathRel='..') =>
    writeFileSync(
       join(__dirname, pathRel, filename),
       Object.keys(devices)
@@ -19,7 +19,7 @@ const writeDeviceList = (filename="devices.txt", pathRel='..') =>
          .join('\n')
    );
 
-const getElementStyles = async (frame, selector) =>
+export const getElementStyles = async (frame, selector) =>
    await frame.evaluate((sel) => {
       let el = document.querySelector(sel);
       if (!el){
@@ -32,15 +32,8 @@ const getElementStyles = async (frame, selector) =>
       }
    }, selector)
 
-const mkDirIfAbsent = path => {
+export const mkDirIfAbsent = path => {
    if (!existsSync(path)) {
       mkdirSync(path);
    }
-}
-
-
-module.exports = {
-   writeDeviceList,
-   getElementStyles,
-   mkDirIfAbsent
 }
