@@ -131,12 +131,26 @@ describe(`Page Tests for ${url}`,  function () {
          expect(header).not.be.null;
       })
 
+      it(`has a title element and it isn't empty`, async () => {
+         let title = await page.$eval(
+            'title',
+            title => title.innerHTML
+         );
+         expect(title).to.be.string;
+         expect(title).to.not.be.empty;
+      })
+
       it(`has html`, async () => {
          let frameContent = await frame.content();
          // let html = await frame.$eval('body', el => el.innerHTML);
          // console.log(frameContent);
          expect(typeof frameContent).to.equal('string');
          expect(frameContent.length).to.be.greaterThan(0);
+      })
+
+      it(`has metatags`, async () => {
+         let metaTags = await page.$$('meta');
+         expect(metaTags.length).to.be.greaterThan(0);
       })
 
       it(`can click an element`, async () => {
