@@ -119,7 +119,7 @@ describe(`Page Tests`,  function () {
             )
          })
 
-         describe(`page elements`, () => {
+         describe.only(`page elements`, () => {
             it(`has dom nodes`, async () => {
                let metrics = await page.metrics();
                expect(metrics.Nodes).to.be.greaterThan(0);
@@ -134,7 +134,7 @@ describe(`Page Tests`,  function () {
             it(`has a title element and it isn't empty`, async () => {
                let title = await page.$eval(
                   'title',
-                  title => title.innerHTML
+                  title => title.textContent
                );
                expect(title).to.be.string;
                expect(title).to.not.be.empty;
