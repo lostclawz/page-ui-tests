@@ -10,7 +10,3 @@ export const SCREENSHOTS_FOR = [
    'iPad Pro landscape',
    'Galaxy S5'
 ];
-
-export const WP_DOMAIN = "http://localhost:8080";
-export const WP_USERNAME = '';
-export const WP_PASSWORD = '';

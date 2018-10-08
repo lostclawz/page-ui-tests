@@ -2,14 +2,18 @@
 import puppeteer from 'puppeteer';
 import {expect} from 'chai';
 import {
-   TEST_TIMEOUT,
+   TEST_TIMEOUT
+} from './constants';
+import dotenv from 'dotenv';
+
+dotenv.config();
+let {
    WP_USERNAME,
    WP_PASSWORD,
    WP_DOMAIN
-} from './constants';
+} = process.env;
 
-
-describe.only('Wordpress login process', function(){
+describe('Wordpress login process', function(){
    this.timeout(TEST_TIMEOUT);
 
    var browser, page;
@@ -25,7 +29,7 @@ describe.only('Wordpress login process', function(){
 
    it(`can log into Wordpress`, async () => {
       if (!WP_USERNAME || !WP_PASSWORD){
-         throw new Error('Wordpress credentials not specified in constants.');
+         throw new Error('Wordpress credentials not specified in .env');
       }
       let TEST_SELECTOR = '#wp-admin-bar-my-account';
       
