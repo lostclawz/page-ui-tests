@@ -27,7 +27,7 @@ describe(`Page Tests`,  function () {
 
          var browser, page;
 
-         describe.only('page interactions', () => {
+         describe('page interactions', () => {
             beforeEach(async () => {
                browser = await puppeteer.launch({
                   timeout: 0

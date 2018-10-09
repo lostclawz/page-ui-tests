@@ -5,7 +5,7 @@ let {
 } = process.env;
 
 
-export const TEST_TIMEOUT = 30000;
+export const TEST_TIMEOUT = 60000;
 
 export let URLS = [];
 if (TEST_URL){
