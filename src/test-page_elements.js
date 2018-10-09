@@ -4,7 +4,8 @@ import devices from 'puppeteer/DeviceDescriptors';
 import {expect} from 'chai';
 import {
    getElementStyles,
-   hasClass
+   hasClass,
+   getClasses
 } from './utils/testing-utils';
 import {
    URLS,
@@ -14,8 +15,7 @@ import {
 const dotEnvConfig = dotenv.config();
 const {
    MENU_SELECTOR,
-   MENU_LINK_SELECTOR,
-   TEST_URL
+   MENU_LINK_SELECTOR
 } = process.env;
 
 
@@ -27,7 +27,7 @@ describe(`Page Tests`,  function () {
 
          var browser, page;
 
-         describe('page interactions', () => {
+         describe.only('page interactions', () => {
             beforeEach(async () => {
                browser = await puppeteer.launch({
                   timeout: 0
@@ -47,7 +47,7 @@ describe(`Page Tests`,  function () {
 
             it(`menu becomes fixed only after scrolling`, async () => {
                let menuStyles;
-               await page.emulate(devices['iPhone X']);
+               // await page.emulate(devices['iPhone X']);
                // scroll to top of page
                await page.evaluate(() => window.scrollTo(0, 0))
                menuStyles = await getElementStyles(page, MENU_SELECTOR);
@@ -55,23 +55,29 @@ describe(`Page Tests`,  function () {
                   menuStyles.position, `menu isn't initially fixed`
                ).to.not.equal('fixed');
                // scroll to a point where top-fixed should be applied
-               await page.evaluate(() => window.scrollTo(0, 1200))
+               await page.evaluate(() => window.scrollTo(0, 1400))
+               await page.waitFor(200);
                menuStyles = await getElementStyles(page, MENU_SELECTOR);
                expect(menuStyles.position).to.equal('fixed');
             })
 
-            it(`menu link toggles menu's open class on click`, async () => {
+            it(`on mobile, menu link toggles menu's open class on click`, async () => {
                let menuOpen;
-               await page.setViewport({
-                  width: 600,
-                  height: 800
-               });
+               await page.emulate(devices['iPhone X']);
                await page.evaluate(() => window.scrollTo(0, 1200))
+               // wait for transition
+               page.waitFor(250);
                menuOpen = await hasClass(page, MENU_SELECTOR, 'open');
-               expect(menuOpen).to.be.false;
+               expect(menuOpen, 'menu did not begin with .open class').to.be.false;
                await page.click(MENU_LINK_SELECTOR);
+               // wait for JS
+               await page.waitFor(250);
                menuOpen = await hasClass(page, MENU_SELECTOR, 'open');
-               expect(menuOpen).to.be.true;
+               let menuClasses = [];
+               if (!menuOpen){
+                  menuClasses = await getClasses(page, MENU_SELECTOR);
+               }
+               expect(menuOpen, `menu only has classes ${menuClasses.join(', ')}`).to.be.true;
             })
          })
 
