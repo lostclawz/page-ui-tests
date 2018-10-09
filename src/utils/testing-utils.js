@@ -38,6 +38,16 @@ export const hasClass = async (page, selector, className) =>
       className
    )
 
+export const getClasses = async (page, selector) =>
+   await page.$eval(selector, ($el, className) => {
+      let classList = $el.classList;
+      let classes = [];
+      for (var i = 0; i < classList.length; i++){
+         classes.push(classList[i]);
+      }
+      return classes;
+   })
+
 export const mkDirIfAbsent = path => {
    if (!existsSync(path)) {
       mkdirSync(path);
