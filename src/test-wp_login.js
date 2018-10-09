@@ -1,17 +1,22 @@
 
 import puppeteer from 'puppeteer';
-import {expect} from 'chai';
+import dotenv from 'dotenv';
+import {
+   expect,
+   assert
+} from 'chai';
 import {
    TEST_TIMEOUT
 } from './constants';
-import dotenv from 'dotenv';
+import {validUrl} from './utils/testing-utils';
 
-dotenv.config();
+const dotEnvConfig = dotenv.config();
 let {
    WP_USERNAME,
    WP_PASSWORD,
    WP_DOMAIN
 } = process.env;
+
 
 describe('Wordpress login process', function(){
    this.timeout(TEST_TIMEOUT);
@@ -27,10 +32,20 @@ describe('Wordpress login process', function(){
       await browser.close();
    })
 
+   it(`has access to .env`, () => {
+      assert(dotEnvConfig.error === undefined, "error accessing .env files");
+   })
+
    it(`can log into Wordpress`, async () => {
-      if (!WP_USERNAME || !WP_PASSWORD){
-         throw new Error('Wordpress credentials not specified in .env');
-      }
+      expect(WP_USERNAME, 'WP_USERNAME not in .env').to.be.a('string').and.not.empty;
+      expect(WP_PASSWORD, 'WP_PASSWORD not in .env').to.be.a('string').and.not.empty;
+      expect(WP_DOMAIN, 'WP_DOMAIN not in .env').to.be.a('string').and.not.empty;
+      expect(
+         validUrl(WP_DOMAIN), "WP_DOMAIN isn't a valid url"
+      ).to.be.true;
+      
+      expect(validUrl(WP_DOMAIN), "WP_DOMAIN isn't a valid url").to.be.true;
+
       let TEST_SELECTOR = '#wp-admin-bar-my-account';
       
       await page.goto(`${WP_DOMAIN}/wp-admin`)
