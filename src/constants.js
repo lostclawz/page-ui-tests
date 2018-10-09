@@ -1,9 +1,16 @@
+import dotenv from 'dotenv';
+const dotEnvConfig = dotenv.config();
+let {
+   TEST_URL
+} = process.env;
+
 
 export const TEST_TIMEOUT = 30000;
 
-export const URLS = [
-   'http://www.kupex.com/'
-];
+export let URLS = [];
+if (TEST_URL){
+   URLS.push(TEST_URL);
+}
 
 export const SCREENSHOTS_FOR = [
    'iPhone 6',

@@ -14,8 +14,10 @@ import {
 const dotEnvConfig = dotenv.config();
 const {
    MENU_SELECTOR,
-   MENU_LINK_SELECTOR
+   MENU_LINK_SELECTOR,
+   TEST_URL
 } = process.env;
+
 
 describe(`Page Tests`,  function () {
    URLS.forEach(url => {
