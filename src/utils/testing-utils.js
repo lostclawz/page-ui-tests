@@ -19,18 +19,24 @@ export const writeDeviceList = (filename="devices.txt", pathRel='..') =>
          .join('\n')
    );
 
-export const getElementStyles = async (frame, selector) =>
-   await frame.evaluate((sel) => {
-      let el = document.querySelector(sel);
-      if (!el){
+export const getElementStyles = async (page, selector) =>
+   await page.$eval(selector, $el => {
+      if (!$el){
          throw new Error(`Element ${sel} not found.`);
       }
       else{
-         let styles = getComputedStyle(el);
+         let styles = getComputedStyle($el);
          let styleObj = JSON.stringify(styles);
          return JSON.parse(styleObj);
       }
-   }, selector)
+   })
+
+export const hasClass = async (page, selector, className) =>
+   await page.$eval(
+      selector,
+      ($el, className) => $el.classList.contains(className),
+      className
+   )
 
 export const mkDirIfAbsent = path => {
    if (!existsSync(path)) {
