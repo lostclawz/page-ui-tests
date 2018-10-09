@@ -3,16 +3,24 @@ import {expect} from 'chai';
 
 
 describe(`browser environment`, () => {
+
+   var browser;
+
+   before(async function(){
+      browser = await puppeteer.launch();
+   })
+
+   after(async function(){
+      await browser.close();
+   })
+
    it(`has a version`, async () => {
-      const browser = await puppeteer.launch();
       let v = await browser.version();
       expect(v).to.be.ok;
-      await browser.close();
    })
    it(`has a user agent`, async () => {
-      const browser = await puppeteer.launch();
       let v = await browser.userAgent();
       expect(v).to.be.string;
-      await browser.close();
    })
+
 })
