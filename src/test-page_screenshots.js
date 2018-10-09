@@ -9,6 +9,7 @@ import {
    SCREENSHOTS_FOR
 } from './constants';
 
+
 // if screenshot directory doesn't exist, create it
 const screenshotDir = join(__dirname, '..', 'screenshots');
 mkDirIfAbsent(screenshotDir);
@@ -32,35 +33,35 @@ describe(`Page Screenshots`,  function () {
 
          var browser, page;
 
-         beforeEach(async () => {
+         before(async () => {
             browser = await puppeteer.launch({
                timeout: 0
             });
             page = await browser.newPage(); 
             // await page.goto(url, {waitUntil: 'networkidle2', timeout: 0});
             await page.goto(url, {waitUntil: 'load', timeout: 0});
+         })
+
+         after(async () => {
+            await browser.close();
+         })
+         
+         it(`can make desktop screenshots (pdf and jpg)`, async () => {
             await page.setViewport({
                width: 1920,
                height: 1200
             })
-         })
 
-         afterEach(async () => {
-            await browser.close();
-         })
-         
-         it(`can make pdf screenshots`, async () => {
             await page.pdf({
                path: screenshotPath('pdf', 'pdf'),
                format: 'A4'
             });
 
-            let screenshot = await page.screenshot({
+            await page.screenshot({
                path: screenshotPath('desktop'),
                quality: 100,
                fullPage: true
             });
-            expect(screenshot instanceof Buffer).to.be.true;
          })
 
          SCREENSHOTS_FOR.forEach(deviceType =>
