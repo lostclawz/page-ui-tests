@@ -9,7 +9,7 @@ import {
 } from './constants';
 
 
-describe.only(`Page Errors`,  function () {
+describe(`Page Errors`,  function () {
    URLS.forEach(url => {
       describe(`${url}`,  function () {
 

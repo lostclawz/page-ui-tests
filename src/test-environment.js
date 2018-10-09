@@ -2,7 +2,6 @@ import puppeteer from 'puppeteer';
 import {expect} from 'chai';
 
 
-
 describe(`browser environment`, () => {
    it(`has a version`, async () => {
       const browser = await puppeteer.launch();
