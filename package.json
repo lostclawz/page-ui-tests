@@ -13,19 +13,19 @@
    "author": "Philip Kuperberg",
    "license": "ISC",
    "dependencies": {
-      "@babel/core": "^7.1.2",
-      "@babel/polyfill": "^7.0.0",
-      "@babel/preset-env": "^7.1.0",
+      "@babel/core": "^7.2.2",
+      "@babel/polyfill": "^7.2.5",
+      "@babel/preset-env": "^7.3.1",
       "@babel/register": "^7.0.0",
       "chai": "^4.1.2",
-      "dotenv": "^6.1.0",
+      "dotenv": "^6.2.0",
       "mocha": "^5.2.0",
-      "puppeteer": "^1.10.0",
-      "sinon": "^7.1.0"
+      "puppeteer": "^1.12.2",
+      "sinon": "^7.2.3"
    },
    "devDependencies": {
       "babel-eslint": "^10.0.1",
-      "eslint": "^5.8.0"
+      "eslint": "^5.13.0"
    },
    "eslintConfig": {
       "env": {
